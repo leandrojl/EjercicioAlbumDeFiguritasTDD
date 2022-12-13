@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import ar.unlam.Excepciones.CodigoExistenteException;
+import ar.unlam.Excepciones.FiguritaNoDisponibleException;
+import ar.unlam.Excepciones.FiguritaNoExistenteException;
 import ar.unlam.Excepciones.FiguritaRepetidaException;
 
 public class TestAlbumFiguritas {
@@ -151,7 +153,7 @@ public class TestAlbumFiguritas {
 	}
 	
 	@Test(expected=FiguritaRepetidaException.class)
-	public void queUnUsuarioFinalNoPuedaPegarLaMismaFiguritaDosVeces() throws FiguritaRepetidaException{
+	public void queUnUsuarioFinalNoPuedaPegarUnaFiguritaRepetida() throws FiguritaRepetidaException{
 		UsuarioFinal usuarioFinal = (UsuarioFinal) dadoQueTengoUnUsuarioFinal();
 		Figurita figu1 = new Figurita(new CodigoIdentificador("Argentina",1),1,"C","Argentina","Franco Armani",1500.0);
 		cuandoQuieroPegarUnaFigurita(usuarioFinal, figu1);
@@ -187,7 +189,82 @@ public class TestAlbumFiguritas {
 	}
 	
 	@Test
-	public void queUnUsuarioFinalNoPuedaPegarUnaFiguritaRepetida() {
+	public void queSePuedaRealizarElIntercambioDeFiguritasEntreDosUsuariosFinales() {
+		Usuario usuarioFinalUno = dadoQueTengoUnUsuarioFinal();
+		Usuario usuarioFinalDos = dadoQueTengoUnUsuarioFinal();
+		Figurita figu1 = new Figurita(new CodigoIdentificador("Argentina",1),1,"C","Argentina","Franco Armani",1500.0);
+		Figurita figu2 = new Figurita(new CodigoIdentificador("Argentina",10),10,"C","Argentina","Messi",21500.0);
+		cuandoAgregoLaFiguritaAlStockDelUsuarioFinal(usuarioFinalUno, figu1);
+		cuandoAgregoLaFiguritaAlStockDelUsuarioFinal(usuarioFinalDos, figu2);
+		try {
+			cuandoIntercambioLasFiguritasEntreUsuariosFinales(usuarioFinalUno, figu1, usuarioFinalDos,figu2);
+		} catch (FiguritaNoExistenteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		entoncesLosUsuarioFinalesPudieronIntercambiarLasFiguritas(usuarioFinalUno, figu1, usuarioFinalDos,figu2);
+	}
+	
+	@Test(expected=FiguritaNoExistenteException.class)
+	public void queNoSePuedaIntercambiarUnaFiguritaDeUnUsuarioQueNoLaTenga() throws FiguritaNoExistenteException{
+		Usuario usuarioFinalUno = dadoQueTengoUnUsuarioFinal();
+		Usuario usuarioFinalDos = dadoQueTengoUnUsuarioFinal();
+		Figurita figu1 = new Figurita(new CodigoIdentificador("Argentina",1),1,"C","Argentina","Franco Armani",1500.0);
+		Figurita figu2 = new Figurita(new CodigoIdentificador("Argentina",10),10,"C","Argentina","Messi",21500.0);
+		cuandoAgregoLaFiguritaAlStockDelUsuarioFinal(usuarioFinalUno, figu1);
+		cuandoAgregoLaFiguritaAlStockDelUsuarioFinal(usuarioFinalDos, figu2);
+		cuandoIntercambioLasFiguritasEntreUsuariosFinales(usuarioFinalUno, figu1, usuarioFinalDos,figu1);
+	}
+	
+	@Test(expected=FiguritaNoDisponibleException.class)
+	public void queNoSePuedaIntercambiarUnaFiguritaDeUnUsuarioQueYaLaHayaPegado() throws FiguritaNoDisponibleException {
+		Usuario usuarioFinalUno = dadoQueTengoUnUsuarioFinal();
+		Usuario usuarioFinalDos = dadoQueTengoUnUsuarioFinal();
+		Figurita figu1 = new Figurita(new CodigoIdentificador("Argentina",1),1,"C","Argentina","Franco Armani",1500.0);
+		Figurita figu2 = new Figurita(new CodigoIdentificador("Argentina",10),10,"C","Argentina","Messi",21500.0);
+		cuandoPegoLaFiguritaEnElAlbumDelUsuarioFinalUno(usuarioFinalUno,figu1);
+		cuandoIntercambioLasFiguritasEntreUsuarioFinalUnoYUsuarioFinalDosLanzaExcepcionPorqueElUsuarioFinalUnoYaPegoLaFigurita(usuarioFinalUno, figu1, usuarioFinalDos,figu1);
+	}
+
+	private void cuandoIntercambioLasFiguritasEntreUsuarioFinalUnoYUsuarioFinalDosLanzaExcepcionPorqueElUsuarioFinalUnoYaPegoLaFigurita(Usuario usuarioFinalUno,
+			Figurita figu1, Usuario usuarioFinalDos, Figurita figu2) throws FiguritaNoDisponibleException {
+		if(((UsuarioFinal)usuarioFinalUno).getAlbum().containsKey(new CodigoIdentificador("Argentina",1)) ) {
+			throw new FiguritaNoDisponibleException("Figurita no existente");
+			
+		}else {
+			((UsuarioFinal)usuarioFinalUno).getStock().set(0,figu2);
+			((UsuarioFinal)usuarioFinalDos).getStock().set(0,figu1);
+		}
+		
+	}
+
+	private void cuandoPegoLaFiguritaEnElAlbumDelUsuarioFinalUno(Usuario usuarioFinalUno, Figurita figu1) {
+		try {
+			((UsuarioFinal)usuarioFinalUno).pegarUnaFigurita(figu1);
+		} catch (FiguritaRepetidaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	private void entoncesLosUsuarioFinalesPudieronIntercambiarLasFiguritas(Usuario usuarioFinalUno, Figurita figu1,
+			Usuario usuarioFinalDos, Figurita figu2) {
+		Assert.assertTrue(((UsuarioFinal)usuarioFinalUno).getStock().contains(figu2));
+		Assert.assertTrue(((UsuarioFinal)usuarioFinalDos).getStock().contains(figu1));
+		
+	}
+
+	private void cuandoIntercambioLasFiguritasEntreUsuariosFinales(Usuario usuarioFinalUno, Figurita figu1,
+			Usuario usuarioFinalDos, Figurita figu2) throws FiguritaNoExistenteException{
+		if(((UsuarioFinal)usuarioFinalUno).getStock().contains(figu1) && ((UsuarioFinal)usuarioFinalDos).getStock().contains(figu2)) {
+			((UsuarioFinal)usuarioFinalUno).getStock().set(0,figu2);
+			((UsuarioFinal)usuarioFinalDos).getStock().set(0,figu1);
+		}else {
+			throw new FiguritaNoExistenteException("Figurita no existente");
+		}
+		
+		
 		
 	}
 
