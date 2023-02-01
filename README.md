@@ -22,30 +22,30 @@ Por último, el sistema debe permitir el intercambio de figuritas entre distinto
 
 ### Testeos a desarrollar: 
 
-queSePuedaCrearUnaFigurita
+queSePuedaCrearUnaFigurita();
 
-queSePuedaCrearUnAdministrador
+queSePuedaCrearUnAdministrador();
 
-queSePuedaCrearUnUsuarioFinal
+queSePuedaCrearUnUsuarioFinal();
 
-queUnAdministradorPuedaAgregarUnaFigurita
+queUnAdministradorPuedaAgregarUnaFigurita();
 
-queUnUsuarioFinalPuedaAgregarUnaFigurita
+queUnUsuarioFinalPuedaAgregarUnaFigurita();
 
-queLasFiguritasAgregadasDeFormaDesordenadaQuedenOrdenadas
+queLasFiguritasAgregadasDeFormaDesordenadaQuedenOrdenadas();
 
-queUnAdministradorNoPuedaAgregarUnaFiguritaExistente
+queUnAdministradorNoPuedaAgregarUnaFiguritaExistente();
 
-queUnUsuarioFinalSiPuedaAgregarFiguritasExistentes
+queUnUsuarioFinalSiPuedaAgregarFiguritasExistentes();
 
-queUnUsuarioFinalPuedaPegarUnaFigurita
+queUnUsuarioFinalPuedaPegarUnaFigurita();
 
-queUnUsuarioFinalNoPuedaPegarUnaFiguritaRepetida
+queUnUsuarioFinalNoPuedaPegarUnaFiguritaRepetida();
 
-queSePuedaRealizarElIntercambioDeFiguritasEntreDosUsuariosFinales
+queSePuedaRealizarElIntercambioDeFiguritasEntreDosUsuariosFinales();
 
-queNoSePuedaIntercambiarUnaFiguritaDeUnUsuarioQueNoLaTenga
+queNoSePuedaIntercambiarUnaFiguritaDeUnUsuarioQueNoLaTenga();
 
-queNoSePuedaIntercambiarUnaFiguritaDeUnUsuarioQueYaLaHayaPegado
+queNoSePuedaIntercambiarUnaFiguritaDeUnUsuarioQueYaLaHayaPegado();
 
 
