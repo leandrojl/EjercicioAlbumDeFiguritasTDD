@@ -1,4 +1,4 @@
-# Proyecto de Album de Figuritas con Java.
+# Ejercicio de Album de Figuritas con Java.
 
 ## Descripcion del Proyecto:
 
