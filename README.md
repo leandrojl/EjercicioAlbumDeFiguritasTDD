@@ -8,6 +8,11 @@ Este proyecto se basa en un ejercicio de evaluacion dictado por la Universidad d
 
 Para resolver el siguiente ejercicio se utilizo el lenguaje Java enfocado en el paradigma de Programacion Orientada a Objetos, donde se emplearon los casos de testeos solicitados y manejo de Excepciones especificamente para errores previstos.
 
+## Como utilizar este archivo:
+El IDE que utilizo es Eclipse, por lo que la ruta puede diferir en otros programas.
+1) En el caso de clonar el repositorio : `git clone https://github.com/leandrojl/EjercicioAlbumDeFiguritasTDD.git`
+2) Al utilizar eclipse, desde github dentro del repositoro ir a la solapa Code -> Descargar ZIP -> Descomprimirlo -> Abrir Eclipse -> File -> Open Projects from File System -> Directory -> Elegir la carpeta descomprimida.
+
 ### Consigna detallada del proyecto:
 
 Nos contrata Panini para desarrollar la versión digital del álbum de figuritas del mundial.
